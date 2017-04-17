@@ -1,0 +1,19 @@
+{
+  "name": "productivityApplication",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "./node_modules/.bin/electron ."
+  },
+  "devDependencies": {
+    "electron": "^1.6.2"
+  },
+  "dependencies": {
+    "human-readable-time": "^0.2.4",
+    "menubar": "^5.2.3",
+    "timer-stopwatch": "^0.2.0"
+  }
+}
