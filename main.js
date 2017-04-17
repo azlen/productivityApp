@@ -43,8 +43,9 @@ mb.on('ready', () => {
 
 // never lets itself disappear
 mb.on('focus-lost', () => {
-  console.log('focus-lost')
-  setTimeout(mb.showWindow, 1000) // this should be 0, 1000 makes it easier to close for now
+  if(currentState === state.DONE_STATE) {
+    setTimeout(mb.showWindow, 1000)
+  }
 })
 
 

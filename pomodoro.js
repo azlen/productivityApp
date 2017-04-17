@@ -1,5 +1,9 @@
-const {ipcRenderer} = require('electron')
+const {ipcRenderer, webFrame} = require('electron')
 const hrt = require('human-readable-time')
+
+// Disable zooming
+webFrame.setVisualZoomLevelLimits(1, 1);
+webFrame.setLayoutZoomLevelLimits(0, 0);
 
 let currentState
 let state = {
