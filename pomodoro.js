@@ -1,6 +1,26 @@
 const {ipcRenderer} = require('electron')
 const hrt = require('human-readable-time')
 
+let currentState
+let state = {
+	DONE_STATE: 0,
+	TIMER_STATE: 1
+}
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
+
+function setState(newState) {
+	currentState = newState
+	let currentKey = getKeyByValue(state, newState)
+	for(let key in state) {
+		let elements = document.querySelectorAll(`.${key}`)
+		for(let i = 0; i < elements.length; i++) {
+			if(key === currentKey) elements[i].style.display = ''
+			else elements[i].style.display = 'none'
+		}
+	}
+}
 
 let progress = document.querySelector('.progress')
 let circle = document.querySelector('.circle')
@@ -25,4 +45,5 @@ ipcRenderer.on('updateTime', (event, arg) => {
 	setProgress(arg.ms / arg.max)
 })
 
+setState(state.DONE_STATE)
 setProgress(0.89)
