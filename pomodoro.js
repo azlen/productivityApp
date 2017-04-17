@@ -16,7 +16,7 @@ function setState(newState) {
 	for(let key in state) {
 		let elements = document.querySelectorAll(`.${key}`)
 		for(let i = 0; i < elements.length; i++) {
-			if(key === currentKey) elements[i].style.display = ''
+			if(key === currentKey) elements[i].style.display = null
 			else elements[i].style.display = 'none'
 		}
 	}
@@ -45,5 +45,7 @@ ipcRenderer.on('updateTime', (event, arg) => {
 	setProgress(arg.ms / arg.max)
 })
 
-setState(state.DONE_STATE)
-setProgress(0.89)
+ipcRenderer.on('updateState', (event, arg) => {
+	console.log(arg)
+	setState(arg)
+})

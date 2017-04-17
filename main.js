@@ -8,52 +8,45 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 let timer = new Stopwatch(25 * 60 * 1000)
+timer.start()
 
-function createWindow () {
-  // Create the browser window.
-  mb = new menubar({
-    width: 300,
-    height: 350,
-    alwaysOnTop: true
-  })
-
-  // and load the index.html of the app.
-  mb.on('after-create-window', () => {
-    // mb.showWindow()
-
-    console.log('ready')
-
-    // setInterval(() => mb.window.webContents.send('updateTime', 1), 1000)
-    timer.onTime((time) => {
-      mb.window.webContents.send('updateTime', Object.assign(time, {max: timer.countDownMS}))
-    })
-    timer.start()
-
-    mb.window.loadURL(url.format({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file:',
-      slashes: true
-    }))
-
-    
-  })
-
-  
-
-
-
-  // never lets itself disappear
-  mb.on('focus-lost', () => {
-    console.log('focus-lost')
-    setTimeout(mb.showWindow, 1000) // this should be 0, 1000 makes it easier to close for now
-  })
-
+let currentState
+let state = {
+  DONE_STATE: 0,
+  TIMER_STATE: 1
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+mb = new menubar({
+  width: 300,
+  height: 350,
+  alwaysOnTop: true,
+  preloadWindow: true
+})
+
+let setState = function(newState) {
+  currentState = newState
+  mb.window.webContents.send('updateState', newState)
+}
+
+timer.onTime((time) => {
+  if(mb.window === undefined) return
+  mb.window.webContents.send('updateTime', Object.assign(time, {max: timer.countDownMS}))
+})
+
+mb.on('ready', () => {
+  mb.window.on('ready-to-show', () => {
+    // mb.window.openDevTools()
+    mb.showWindow()
+    setState(state.DONE_STATE)
+  })
+})
+
+// never lets itself disappear
+mb.on('focus-lost', () => {
+  console.log('focus-lost')
+  setTimeout(mb.showWindow, 1000) // this should be 0, 1000 makes it easier to close for now
+})
+
 
 /*
 // Quit when all windows are closed.
