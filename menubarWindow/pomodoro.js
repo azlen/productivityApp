@@ -44,7 +44,7 @@ let circle = document.querySelector('.circle')
 let time = document.querySelector('.time')
 let radius = 50
 
-time.addEventListener('click', () => {
+document.querySelector('.start-timer-button').addEventListener('click', () => {
 	ipcRenderer.send('startTimer')
 })
 
