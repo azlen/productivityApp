@@ -6,10 +6,69 @@ html, body {
 }
 
 body {
-	background: linear-gradient(0deg, rgb(230, 230, 230), rgb(255, 255, 255)); /* light (top) to dark (bottom) */
-	color: rgb(76, 76, 76);
+	background: linear-gradient(0deg, var(--bg-gradient-color-bottom), var(--bg-gradient-color-top)); /* light (top) to slightly darker (bottom) */
+	color: var(--main-text-color);
 
-	font-family: "Akrobat";
+	font-family: "Avenir Next";
 
 	cursor: default;
+}
+
+.container {
+	display: flex;
+
+	width: 100%;
+	height: 100%;
+}
+
+.menu {
+	flex: 0 0 1;
+	width: 150px;
+	position: relative;
+
+	background-color: var(--main-color);
+	color: white;
+
+	display: flex;
+	align-items: center;
+
+	-webkit-app-region: drag;
+	-webkit-user-select: none;
+}
+
+.menu > div {
+	width: 100%;
+}
+
+.menu-title {
+	margin: 0;
+	font-size: 14pt;
+	font-weight: 500;
+
+	margin-left: 15px;
+	margin-right: 15px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+
+	/*border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+}
+
+.menu label {
+	display: block;
+	padding: 5px 15px;
+	font-size: 10pt;
+	cursor: pointer;
+	-webkit-app-region: no-drag;
+}
+
+.menu input[type="radio"] {
+	display: none;
+}
+
+.menu input[type="radio"]:checked + label {
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.preferences {
+	flex: 1;
 }

@@ -95,15 +95,18 @@ function createPreferencesWindow() {
     dir: 'preferencesWindow',
     width: 500,
     height: 300,
-    //titleBarStyle: 'hidden', // Hides title bar, leaves window controls ("traffic lights")
+    titleBarStyle: 'hidden', // Hides title bar, leaves window controls ("traffic lights")
     resizable: false,
     center: true, // Positions itself at the center of the screen
   })
+
+  pref.loadURL(`file://${__dirname}/preferencesWindow/index.html`)
 }
 
 ipcMain.on('openPreferences', (event, arg) => {
   createPreferencesWindow()
 })
+
 
 
 /*

@@ -6,26 +6,6 @@ html, body {
 }
 
 body {
-	/* Default theme variables */
-	--main-text-color: rgb(76, 76, 76);
-	--faded-text-color: rgb(204, 204, 204);
-	--main-color: rgb(0,231,187);
-
-	--bg-gradient-color-top: rgb(255, 255, 255);
-	--bg-gradient-color-bottom: rgb(230, 230, 230);
-}
-
-body.dark1 {
-	/* Dark theme variables */
-	--main-text-color: rgb(255, 255, 255);
-	--faded-text-color: rgb(103, 103, 103);
-	--main-color: rgb(79,188,246);
-
-	--bg-gradient-color-top: rgb(52, 52, 52);
-	--bg-gradient-color-bottom: rgb(34, 34, 34);
-}
-
-body {
 	background: linear-gradient(0deg, var(--bg-gradient-color-bottom), var(--bg-gradient-color-top)); /* light (top) to slightly darker (bottom) */
 	color: var(--main-text-color);
 

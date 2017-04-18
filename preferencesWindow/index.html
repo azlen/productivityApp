@@ -3,13 +3,33 @@
   <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="../themes.css" />
+    <link rel="stylesheet" href="style.css" />
 
     <title>Preferences</title>
   </head>
   <body>
-    <h1>Preferences</h1>
-    
+  	<div class="container">
+		  <div class="menu">
+		  	<div>
+			  	<h1 class="menu-title">Preferences</h1>
+
+			  	<input type="radio" name="menu-items" id="menu-item-appearance" checked />
+			  	<label for="menu-item-appearance">Appearance</label>
+
+			  	<input type="radio" name="menu-items" id="menu-item-notifications" />
+			  	<label for="menu-item-notifications">Notifications</label>
+
+			  	<input type="radio" name="menu-items" id="menu-item-timer" />
+			  	<label for="menu-item-timer">Timer</label>
+
+			  	<input type="radio" name="menu-items" id="menu-item-integrations" />
+			  	<label for="menu-item-integrations">Integrations</label>
+			  </div>
+		  </div>
+		  <div class="preferences"></div>
+		</div>
+
     <script src="preferences.js"></script>
   </body>
 </html>
