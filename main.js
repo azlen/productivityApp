@@ -26,7 +26,10 @@ mb = new menubar({
 
 let setState = function(newState) {
   currentState = newState
-  mb.window.webContents.send('updateState', newState)
+  mb.window.webContents.send('updateState', currentState)
+
+  if (currentState === state.DONE_STATE) mb.setOption('alwaysOnTop', true)
+  if (currentState === state.TIMER_STATE) mb.setOption('alwaysOnTop', false)
 }
 
 ipcMain.on('startTimer', (event, arg) => {

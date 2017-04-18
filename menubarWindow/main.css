@@ -20,11 +20,11 @@ body {
 	text-align: right;
 }
 
-.settings {
+.settings-button {
 	color: rgb(204, 204, 204);
 	cursor: pointer;
 }
-.settings:hover {
+.settings-button:hover {
 	color: inherit;
 }
 
@@ -68,5 +68,17 @@ body {
 	font-weight: 100;
 	font-size: 18pt;
 	text-anchor: middle;
-	alignment-baseline: central;
+	fill: rgb(76, 76, 76);
+	/* alignment-baseline: central; */
+}
+
+.start-timer-button, .done-task-button {
+	font-size: 12pt;
+	text-anchor: middle;
+	alignment-baseline: hanging;
+	fill: rgb(204, 204, 204);
+}
+
+.start-timer-button:hover, .done-task-button:hover {
+	fill: rgb(76, 76, 76);
 }
