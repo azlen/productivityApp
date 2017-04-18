@@ -45,7 +45,11 @@ let time = document.querySelector('.time')
 let radius = 50
 
 document.querySelector('.start-timer-button').addEventListener('click', () => {
-	ipcRenderer.send('startTimer')
+	if (task.textContent !== '') {
+		ipcRenderer.send('startTimer')
+	} else {
+		task.focus()
+	}
 })
 
 document.querySelector('.settings-button').addEventListener('click', () => {

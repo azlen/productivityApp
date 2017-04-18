@@ -83,3 +83,20 @@ body {
 .start-timer-button:hover, .done-task-button:hover {
 	fill: rgb(76, 76, 76);
 }
+
+.task:empty + .svg .start-timer-button:hover {
+	fill: rgb(204, 204, 204);
+
+	animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both;
+	transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+  25%, 75% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(1px, 0, 0);
+  }
+}
