@@ -6,8 +6,28 @@ html, body {
 }
 
 body {
-	background: linear-gradient(0deg, rgb(230, 230, 230), rgb(255, 255, 255)); /* light (top) to dark (bottom) */
-	color: rgb(76, 76, 76);
+	/* Default theme variables */
+	--main-text-color: rgb(76, 76, 76);
+	--faded-text-color: rgb(204, 204, 204);
+	--main-color: rgb(0,231,187);
+
+	--bg-gradient-color-top: rgb(255, 255, 255);
+	--bg-gradient-color-bottom: rgb(230, 230, 230);
+}
+
+body.dark1 {
+	/* Dark theme variables */
+	--main-text-color: rgb(255, 255, 255);
+	--faded-text-color: rgb(103, 103, 103);
+	--main-color: rgb(79,188,246);
+
+	--bg-gradient-color-top: rgb(52, 52, 52);
+	--bg-gradient-color-bottom: rgb(34, 34, 34);
+}
+
+body {
+	background: linear-gradient(0deg, var(--bg-gradient-color-bottom), var(--bg-gradient-color-top)); /* light (top) to slightly darker (bottom) */
+	color: var(--main-text-color);
 
 	font-family: "Akrobat";
 
@@ -21,11 +41,11 @@ body {
 }
 
 .settings-button {
-	color: rgb(204, 204, 204);
+	color: var(--faded-text-color);
 	cursor: pointer;
 }
 .settings-button:hover {
-	color: inherit;
+	color: var(--main-text-color);
 }
 
 .pre-task {
@@ -33,7 +53,7 @@ body {
 	font-weight: 400;
 	font-size: 12pt;
 
-	color: rgb(204, 204, 204);
+	color: var(--faded-text-color);
 }
 
 .task {
@@ -47,7 +67,7 @@ body {
 /*.task * { display: inline; }
 .task br { display: none; }*/
 .task::before {
-	color: rgb(204, 204, 204);
+	color: var(--faded-text-color);
 }
 .task:empty:not(:focus)::before {
 	content: attr(data-placeholder);
@@ -59,7 +79,7 @@ body {
 }
 
 .progress {
-	stroke: rgb(0,231,187);
+	stroke: var(--main-color);
 	stroke-width: 5;
 	fill: none;
 }
@@ -68,7 +88,7 @@ body {
 	font-weight: 100;
 	font-size: 18pt;
 	text-anchor: middle;
-	fill: rgb(76, 76, 76);
+	fill: var(--main-text-color);
 	/* alignment-baseline: central; */
 }
 
@@ -76,16 +96,16 @@ body {
 	font-size: 8pt;
 	text-anchor: middle;
 	alignment-baseline: hanging;
-	fill: rgb(204, 204, 204);
+	fill: var(--faded-text-color);
 	cursor: pointer;
 }
 
 .start-timer-button:hover, .done-task-button:hover {
-	fill: rgb(76, 76, 76);
+	fill: var(--main-text-color);
 }
 
 .task:empty + .svg .start-timer-button:hover {
-	fill: rgb(204, 204, 204);
+	fill: var(--faded-text-color);
 
 	animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both;
 	transform: translate3d(0, 0, 0);
