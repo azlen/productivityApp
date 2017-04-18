@@ -29,10 +29,15 @@ function setState(newState) {
 }
 
 // Prevent newlines from being added to the contenteditable task element
+// In fact, when the enter key is pressed we want to start the timer
 let task = document.querySelector('.task')
 task.addEventListener('keypress', (e) => {
 	if(e.key === 'Enter') {
 		e.preventDefault() // Prevents newline
+
+		task.blur() // Unfocus task; hide caret
+		
+		ipcRenderer.send('startTimer') // Starts timer
 	}
 })
 task.addEventListener('paste', (e) => {

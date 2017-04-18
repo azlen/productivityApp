@@ -58,7 +58,7 @@ timer.onStop(() => {
   notifier.notify({
     title: `Time's Up!`,
     message: 'Time to take a 5 minute break.',
-    sound: true
+    sound: "Submarine"
   })
 
   // Reset the timer to 25 minutes
