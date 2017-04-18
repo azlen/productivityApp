@@ -1,0 +1,15 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	background: linear-gradient(0deg, rgb(230, 230, 230), rgb(255, 255, 255)); /* light (top) to dark (bottom) */
+	color: rgb(76, 76, 76);
+
+	font-family: "Akrobat";
+
+	cursor: default;
+}

@@ -1,20 +1,13 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const menubar = require('menubar')
 const Stopwatch = require('timer-stopwatch')
-const path = require('path')
-const url = require('url')
+// const path = require('path')
+// const url = require('url')
 const notifier = require('node-notifier')
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let win
-let timer = new Stopwatch(25 /* * 60 */ * 1000)
-
-let currentState
-let state = {
-  DONE_STATE: 0,
-  TIMER_STATE: 1
-}
+const SECOND = 1000
+const MINUTE = 60 * SECOND
+const HOUR = 60 * MINUTE
 
 mb = new menubar({
   dir: 'menubarWindow',
@@ -24,6 +17,13 @@ mb = new menubar({
   preloadWindow: true
 })
 
+// Initialize state variables and function
+let currentState
+let state = {
+  DONE_STATE: 0,
+  TIMER_STATE: 1
+}
+
 let setState = function(newState) {
   currentState = newState
   mb.window.webContents.send('updateState', currentState)
@@ -32,11 +32,8 @@ let setState = function(newState) {
   if (currentState === state.TIMER_STATE) mb.setOption('alwaysOnTop', false)
 }
 
-ipcMain.on('startTimer', (event, arg) => {
-  timer.start()
-
-  setState(state.TIMER_STATE)
-})
+// Create and initialize timer
+let timer = new Stopwatch(25 * SECOND)
 
 function updateTime(time) {
   if(mb.window === undefined) return
@@ -45,33 +42,67 @@ function updateTime(time) {
 
 timer.onTime(updateTime)
 
-timer.onStop(() => {
-  setState(state.DONE_STATE)
+// Start timer when we receive event from renderer (when start button is pressed)
+ipcMain.on('startTimer', (event, arg) => {
+  timer.start()
+  // Stops nagging user; allows window to unfocus
+  setState(state.TIMER_STATE)
+})
 
+// Call when timer ends
+timer.onStop(() => {
+  // Set state to DONE_STATE to start nagging user again
+  setState(state.DONE_STATE) 
+
+  // Create notification so that user knows that they've run out of time
   notifier.notify({
     title: `Time's Up!`,
     message: 'Time to take a 5 minute break.',
     sound: true
   })
 
-  timer.reset(25 * 60 * 1000)
+  // Reset the timer to 25 minutes
+  timer.reset(25 * MINUTE)
+  // Send updateTime event to renderer to show full progress bar and updated time
   updateTime({ms: timer.countDownMS})
 })
+
 
 mb.on('ready', () => {
   mb.window.on('ready-to-show', () => {
     // mb.window.openDevTools()
+   
     mb.showWindow()
+    // Send event to renderer to update UI; locks window into focus
     setState(state.DONE_STATE)
+    // Send updateTime event to renderer to show full progress bar and updated time
     updateTime({ms: timer.countDownMS})
   })
 })
 
-// never lets itself disappear
+// Never lets itself disappear
 mb.on('focus-lost', () => {
+  // Only activates in DONE_STATE
   if(currentState === state.DONE_STATE) {
-    setTimeout(mb.showWindow, 1000)
+    // Immediately opens itself again
+    setTimeout(mb.showWindow, 0)
   }
+})
+
+// Preferences Window
+function createPreferencesWindow() {
+  let pref = new BrowserWindow({
+    dir: 'preferencesWindow',
+    width: 500,
+    height: 300,
+    //titleBarStyle: 'hidden', // Hides title bar, leaves window controls ("traffic lights")
+    resizable: false,
+    center: true, // Positions itself at the center of the screen
+  })
+}
+
+ipcMain.on('openPreferences', (event, arg) => {
+  createPreferencesWindow()
 })
 
 

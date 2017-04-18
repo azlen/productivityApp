@@ -48,6 +48,10 @@ document.querySelector('.start-timer-button').addEventListener('click', () => {
 	ipcRenderer.send('startTimer')
 })
 
+document.querySelector('.settings-button').addEventListener('click', () => {
+	ipcRenderer.send('openPreferences')
+})
+
 let circumference = 2 * Math.PI * radius
 
 progress.style.strokeDasharray = `${ circumference }, ${ circumference }`

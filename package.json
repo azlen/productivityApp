@@ -12,6 +12,7 @@
     "electron": "^1.6.2"
   },
   "dependencies": {
+    "electron-json-storage": "^3.0.5",
     "human-readable-time": "^0.2.4",
     "menubar": "^5.2.3",
     "node-notifier": "^5.1.2",
