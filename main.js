@@ -3,12 +3,12 @@ const menubar = require('menubar')
 const Stopwatch = require('timer-stopwatch')
 const path = require('path')
 const url = require('url')
+const notifier = require('node-notifier')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
-let timer = new Stopwatch(25 * 60 * 1000)
-timer.start()
+let timer = new Stopwatch(25 /* * 60 */ * 1000)
 
 let currentState
 let state = {
@@ -17,6 +17,7 @@ let state = {
 }
 
 mb = new menubar({
+  dir: 'menubarWindow',
   width: 300,
   height: 350,
   alwaysOnTop: true,
@@ -28,9 +29,30 @@ let setState = function(newState) {
   mb.window.webContents.send('updateState', newState)
 }
 
-timer.onTime((time) => {
+ipcMain.on('startTimer', (event, arg) => {
+  timer.start()
+
+  setState(state.TIMER_STATE)
+})
+
+function updateTime(time) {
   if(mb.window === undefined) return
   mb.window.webContents.send('updateTime', Object.assign(time, {max: timer.countDownMS}))
+}
+
+timer.onTime(updateTime)
+
+timer.onStop(() => {
+  setState(state.DONE_STATE)
+
+  notifier.notify({
+    title: `Time's Up!`,
+    message: 'Time to take a 5 minute break.',
+    sound: true
+  })
+
+  timer.reset(25 * 60 * 1000)
+  updateTime({ms: timer.countDownMS})
 })
 
 mb.on('ready', () => {
@@ -38,6 +60,7 @@ mb.on('ready', () => {
     // mb.window.openDevTools()
     mb.showWindow()
     setState(state.DONE_STATE)
+    updateTime({ms: timer.countDownMS})
   })
 })
 

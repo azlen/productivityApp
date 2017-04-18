@@ -14,6 +14,7 @@
   "dependencies": {
     "human-readable-time": "^0.2.4",
     "menubar": "^5.2.3",
+    "node-notifier": "^5.1.2",
     "timer-stopwatch": "^0.2.0"
   }
 }
