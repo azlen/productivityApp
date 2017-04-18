@@ -5,38 +5,41 @@ const hrt = require('human-readable-time')
 webFrame.setVisualZoomLevelLimits(1, 1);
 webFrame.setLayoutZoomLevelLimits(0, 0);
 
+// Initialize state variables and functions
 let currentState
 let state = {
 	DONE_STATE: 0,
 	TIMER_STATE: 1
 }
+
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
 function setState(newState) {
 	currentState = newState
-	let currentKey = getKeyByValue(state, currentState)
-	for(let key in state) {
-		let elements = document.querySelectorAll(`.${key}`)
-		for(let i = 0; i < elements.length; i++) {
-			if(key === currentKey) elements[i].style.display = null
-			else elements[i].style.display = 'none'
+	let currentKey = getKeyByValue(state, currentState) // Turn integer (e.g. 0) into key (e.g. "DONE_STATE")
+	for(let key in state) { // Go through each state
+		let elements = document.querySelectorAll(`.${key}`) // Get list of all elements that show/hide based on that state
+		for(let i = 0; i < elements.length; i++) { // Go through all elements that show/hide based on that state
+			if(key === currentKey) elements[i].style.display = null // If it is the current state: show the element
+			else elements[i].style.display = 'none' // If it is not the current state: hide the element
 		}
 	}
 }
 
+// Prevent newlines from being added to the contenteditable task element
 let task = document.querySelector('.task')
 task.addEventListener('keypress', (e) => {
 	if(e.key === 'Enter') {
-		e.preventDefault()
+		e.preventDefault() // Prevents newline
 	}
 })
 task.addEventListener('paste', (e) => {
-	e.preventDefault()
-	let text = e.clipboardData.getData("text/plain")
-	text = text.replace(/\n/g, '') // remove new lines
-	document.execCommand('insertHTML', false, text)
+	e.preventDefault() // Prevent paste
+	let text = e.clipboardData.getData("text/plain") // Get text from clipboard
+	text = text.replace(/\n/g, '') // Remove new lines from clipboard text
+	document.execCommand('insertHTML', false, text) // Insert text in proper location (same place it would go in regular paste operation)
 })
 
 let progress = document.querySelector('.progress')
