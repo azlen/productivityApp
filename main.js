@@ -14,7 +14,8 @@ mb = new menubar({
   width: 300,
   height: 350,
   alwaysOnTop: true,
-  preloadWindow: true
+  preloadWindow: true,
+  resizable: false
 })
 
 // Initialize state variables and function

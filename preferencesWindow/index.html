@@ -14,20 +14,36 @@
 		  	<div>
 			  	<h1 class="menu-title">Preferences</h1>
 
-			  	<input type="radio" name="menu-items" id="menu-item-appearance" checked />
+			  	<input type="radio" name="menu-items" id="menu-item-appearance" value="APPEARANCE" checked />
 			  	<label for="menu-item-appearance">Appearance</label>
 
-			  	<input type="radio" name="menu-items" id="menu-item-notifications" />
+			  	<input type="radio" name="menu-items" id="menu-item-notifications" value="NOTIFICATIONS" />
 			  	<label for="menu-item-notifications">Notifications</label>
 
-			  	<input type="radio" name="menu-items" id="menu-item-timer" />
+			  	<input type="radio" name="menu-items" id="menu-item-timer" value="TIMER" />
 			  	<label for="menu-item-timer">Timer</label>
 
-			  	<input type="radio" name="menu-items" id="menu-item-integrations" />
+			  	<input type="radio" name="menu-items" id="menu-item-integrations" value="INTEGRATIONS" />
 			  	<label for="menu-item-integrations">Integrations</label>
 			  </div>
 		  </div>
-		  <div class="preferences"></div>
+		  <div class="preferences">
+		  	<section class="APPEARANCE_SECTION">
+		  		<h2>Background Color</h2>
+		  		<input type="radio" name="background-color" />
+		  		<!--<label for=""></label>-->
+		  		
+		  		<h2>Primary Color</h2>
+		  		<input type="radio" name="primary-color" id="primary-color1" />
+		  		<label for="primary-color1" class="primary-color1"></label>
+
+		  		<input type="radio" name="primary-color" id="primary-color2" />
+		  		<label for="primary-color2" class="primary-color2"></label>
+		  	</section>
+		  	<section class="NOTIFICATIONS_SECTION"></section>
+		  	<section class="TIMER_SECTION"></section>
+		  	<section class="INTEGRATIONS_SECTION"></section>
+		  </div>
 		</div>
 
     <script src="preferences.js"></script>
