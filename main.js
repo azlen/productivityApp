@@ -4,6 +4,7 @@ const Stopwatch = require('timer-stopwatch')
 // const path = require('path')
 // const url = require('url')
 const notifier = require('node-notifier')
+const storage = require('electron-json-storage')
 
 const SECOND = 1000
 const MINUTE = 60 * SECOND
@@ -91,6 +92,8 @@ mb.on('focus-lost', () => {
 })
 
 // Preferences Window
+let preferences
+
 function createPreferencesWindow() {
   let pref = new BrowserWindow({
     dir: 'preferencesWindow',
@@ -104,11 +107,26 @@ function createPreferencesWindow() {
   pref.loadURL(`file://${__dirname}/preferencesWindow/index.html`)
 }
 
+storage.get('preferences', function(error, data) {
+  if (error) throw error;
+
+  preferences = data
+})
+
 ipcMain.on('openPreferences', (event, arg) => {
   createPreferencesWindow()
 })
 
+ipcMain.on('getPreferences', (event, arg) => {
+  event.returnValue = preferences
+})
 
+ipcMain.on('setPreferences', (event, arg) => {
+  preferences = Object.assign(preferences, arg)
+  storage.set('preferences', preferences, (error) => {
+    if (error) throw error
+  })
+})
 
 /*
 // Quit when all windows are closed.
