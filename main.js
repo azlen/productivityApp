@@ -56,6 +56,9 @@ timer.onStop(() => {
   // Set state to DONE_STATE to start nagging user again
   setState(state.DONE_STATE) 
 
+  // Show window (it will stay open)
+  mb.showWindow()
+
   // Create notification so that user knows that they've run out of time
   notifier.notify({
     title: `Time's Up!`,
