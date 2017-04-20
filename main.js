@@ -92,18 +92,23 @@ mb.on('focus-lost', () => {
 })
 
 // Preferences Window
+let pref
 
 function createPreferencesWindow() {
-  let pref = new BrowserWindow({
+  pref = new BrowserWindow({
     dir: 'preferencesWindow',
     width: 500,
     height: 300,
-    titleBarStyle: 'hidden', // Hides title bar, leaves window controls ("traffic lights")
+    titleBarStyle: 'hidden-inset', // Hides title bar, leaves window controls ("traffic lights")
     resizable: false,
     center: true, // Positions itself at the center of the screen
+    fullscreenable: false,
+
   })
 
   pref.loadURL(`file://${__dirname}/preferencesWindow/index.html`)
+
+  pref.hide()
 
   // pref.openDevTools()
 }
@@ -126,9 +131,9 @@ for(let key in defaultSettings) {
 }
 
 ipcMain.on('openPreferenceWindow', (event, arg) => {
-  createPreferencesWindow()
+  if(pref != null) pref.show()
+  else createPreferencesWindow()
 })
-
 
 /*
 // Quit when all windows are closed.
