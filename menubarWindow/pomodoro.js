@@ -8,6 +8,10 @@ webFrame.setLayoutZoomLevelLimits(0, 0);
 
 // Settings update UI functions and watch
 let update = {
+	backgroundColor: ['appearance.backgroundColor', (newValue, oldValue) => {
+		if(oldValue) document.body.classList.remove(`background-color${oldValue}`)
+		document.body.classList.add(`background-color${newValue}`)
+	}],
 	primaryColor: ['appearance.primaryColor', (newValue, oldValue) => {
 		if(oldValue) document.body.classList.remove(`primary-color${oldValue}`)
 		document.body.classList.add(`primary-color${newValue}`)

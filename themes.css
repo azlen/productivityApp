@@ -3,6 +3,10 @@ body {
 	--primary-color1: rgb(0,231,187); /* green */
 	--primary-color2: rgb(79,188,246); /* blue */
 	--primary-color3: rgb(187,95,255); /* purple */
+
+	/* Background bottom gradient colors */
+	--background-color1: rgb(255, 255, 255);
+	--background-color2: rgb(52, 52, 52);
 }
 
 body, body.primary-color1 { --main-color: var(--primary-color1) } /* default fallback */
@@ -17,15 +21,17 @@ body, body.background-color1 { /* default fallback */
 	--main-text-color: rgb(76, 76, 76);
 	--faded-text-color: rgb(204, 204, 204);
 
-	--bg-gradient-color-top: rgb(255, 255, 255);
+	--bg-gradient-color-top: var(--background-color1);
 	--bg-gradient-color-bottom: rgb(230, 230, 230);
 }
+*:not(body).background-color1 { background-color: var(--background-color1) }
 
 body.background-color2 {
 	/* Dark theme */
 	--main-text-color: rgb(255, 255, 255);
 	--faded-text-color: rgb(103, 103, 103);
 
-	--bg-gradient-color-top: rgb(52, 52, 52);
+	--bg-gradient-color-top: var(--background-color2);
 	--bg-gradient-color-bottom: rgb(34, 34, 34);
 }
+*:not(body).background-color2 { background-color: var(--background-color2) }

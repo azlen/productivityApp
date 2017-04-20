@@ -2,12 +2,18 @@ const {ipcRenderer} = require('electron')
 const settings = require('electron-settings')
 
 let update = {
+	backgroundColor: ['appearance.backgroundColor', (newValue, oldValue) => {
+		document.querySelector(`#background-color${newValue}`).checked = true // check correct radio box
+		
+		if(oldValue) document.body.classList.remove(`background-color${oldValue}`)
+		document.body.classList.add(`background-color${newValue}`)
+	}],
 	primaryColor: ['appearance.primaryColor', (newValue, oldValue) => {
 		document.querySelector(`#primary-color${newValue}`).checked = true // check correct radio box
 		
 		if(oldValue) document.body.classList.remove(`primary-color${oldValue}`)
 		document.body.classList.add(`primary-color${newValue}`)
-	}]
+	}],
 }
 
 for(let key in update) {
@@ -23,7 +29,7 @@ function forEachQuerySelectorAll(query, callback) {
 }
 
 // Add callbacks to tabs to switch views
-forEachQuerySelectorAll('input[type="radio"][name="menu-items"]', (el1) => {
+forEachQuerySelectorAll('input[name="menu-items"]', (el1) => {
 	el1.addEventListener('click', (e) => {
 		let targetSection = e.target.value
 		forEachQuerySelectorAll('.preferences-section', (el2) => {
@@ -33,13 +39,17 @@ forEachQuerySelectorAll('input[type="radio"][name="menu-items"]', (el1) => {
 	})
 })
 
-// 
-forEachQuerySelectorAll('input[type="radio"][name="primary-color"]', (el) => {
+// Add callbacks to background colors selection
+forEachQuerySelectorAll('input[name="background-color"]', (el) => {
+	el.addEventListener('click', (e) => {
+		settings.set('appearance.backgroundColor', Number(e.target.value))
+	})
+})
+
+// Add callbacks to primary colors selection
+forEachQuerySelectorAll('input[name="primary-color"]', (el) => {
 	el.addEventListener('click', (e) => {
 		settings.set('appearance.primaryColor', Number(e.target.value))
 	})
 })
 
-window.addEventListener('load', () => {
-	ipcRenderer.send('preferencesLoaded')
-})

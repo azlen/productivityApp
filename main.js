@@ -111,7 +111,8 @@ function createPreferencesWindow() {
 // DEFAULT SETTINGS (before user modification)
 let defaultSettings = {
   appearance: {
-    primaryColor: 2
+    backgroundColor: 1,
+    primaryColor: 1
   }
 }
 
