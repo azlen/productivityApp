@@ -4,7 +4,7 @@ const Stopwatch = require('timer-stopwatch')
 // const path = require('path')
 // const url = require('url')
 const notifier = require('node-notifier')
-const storage = require('electron-json-storage')
+const settings = require('electron-settings')
 
 const SECOND = 1000
 const MINUTE = 60 * SECOND
@@ -92,7 +92,6 @@ mb.on('focus-lost', () => {
 })
 
 // Preferences Window
-let preferences
 
 function createPreferencesWindow() {
   let pref = new BrowserWindow({
@@ -105,28 +104,30 @@ function createPreferencesWindow() {
   })
 
   pref.loadURL(`file://${__dirname}/preferencesWindow/index.html`)
+
+  // pref.openDevTools()
 }
 
-storage.get('preferences', function(error, data) {
-  if (error) throw error;
+// DEFAULT SETTINGS (before user modification)
+let defaultSettings = {
+  appearance: {
+    primaryColor: 2
+  }
+}
 
-  preferences = data
-})
+settings.deleteAll() // just for testing purposes for now
 
-ipcMain.on('openPreferences', (event, arg) => {
+// Set default settings if the settings do not exist yet
+for(let key in defaultSettings) {
+  if(!settings.has(key)) {
+    settings.set(key, defaultSettings[key])
+  }
+}
+
+ipcMain.on('openPreferenceWindow', (event, arg) => {
   createPreferencesWindow()
 })
 
-ipcMain.on('getPreferences', (event, arg) => {
-  event.returnValue = preferences
-})
-
-ipcMain.on('setPreferences', (event, arg) => {
-  preferences = Object.assign(preferences, arg)
-  storage.set('preferences', preferences, (error) => {
-    if (error) throw error
-  })
-})
 
 /*
 // Quit when all windows are closed.

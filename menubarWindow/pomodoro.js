@@ -1,9 +1,23 @@
 const {ipcRenderer, webFrame} = require('electron')
 const hrt = require('human-readable-time')
+const settings = require('electron-settings')
 
 // Disable zooming
 webFrame.setVisualZoomLevelLimits(1, 1);
 webFrame.setLayoutZoomLevelLimits(0, 0);
+
+// Settings update UI functions and watch
+let update = {
+	primaryColor: ['appearance.primaryColor', (newValue, oldValue) => {
+		if(oldValue) document.body.classList.remove(`primary-color${oldValue}`)
+		document.body.classList.add(`primary-color${newValue}`)
+	}]
+}
+
+for(let key in update) {
+	settings.watch(update[key][0], update[key][1])
+	update[key][1](settings.get(update[key][0]))
+}
 
 // Initialize state variables and functions
 let currentState
@@ -36,7 +50,7 @@ task.addEventListener('keypress', (e) => {
 		e.preventDefault() // Prevents newline
 
 		task.blur() // Unfocus task; hide caret
-		
+
 		ipcRenderer.send('startTimer') // Starts timer
 	}
 })
@@ -61,7 +75,7 @@ document.querySelector('.start-timer-button').addEventListener('click', () => {
 })
 
 document.querySelector('.settings-button').addEventListener('click', () => {
-	ipcRenderer.send('openPreferences')
+	ipcRenderer.send('openPreferenceWindow')
 })
 
 let circumference = 2 * Math.PI * radius

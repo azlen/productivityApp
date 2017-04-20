@@ -1,35 +1,30 @@
 body {
 	/* Primary Colors */
-	--primary-color1: rgb(0,231,187);
-	--primary-color2: rgb(79,188,246);
+	--primary-color1: rgb(0,231,187); /* green */
+	--primary-color2: rgb(79,188,246); /* blue */
+	--primary-color3: rgb(187,95,255); /* purple */
+}
 
-	/* Default theme variables */
+body, body.primary-color1 { --main-color: var(--primary-color1) } /* default fallback */
+*:not(body).primary-color1 { background-color: var(--primary-color1) }
+body.primary-color2 { --main-color: var(--primary-color2) }
+*:not(body).primary-color2 { background-color: var(--primary-color2) }
+body.primary-color3 { --main-color: var(--primary-color3) }
+*:not(body).primary-color3 { background-color: var(--primary-color3) }
+
+body, body.background-color1 { /* default fallback */
+	/* Light theme */
 	--main-text-color: rgb(76, 76, 76);
 	--faded-text-color: rgb(204, 204, 204);
-	--main-color: var(--primary-color1);
 
 	--bg-gradient-color-top: rgb(255, 255, 255);
 	--bg-gradient-color-bottom: rgb(230, 230, 230);
 }
 
-body.primary-color1 { --main-color: var(--primary-color1) }
-*:not(body).primary-color1 { background-color: var(--primary-color1) }
-body.primary-color2 { --main-color: var(--primary-color2) }
-*:not(body).primary-color2 { background-color: var(--primary-color2) }
-/*
-body.primary-color3 { --main-color: var(--primary-color3) }
-body.primary-color4 { --main-color: var(--primary-color4) }
-body.primary-color5 { --main-color: var(--primary-color5) }
-body.primary-color6 { --main-color: var(--primary-color6) }
-body.primary-color7 { --main-color: var(--primary-color7) }
-body.primary-color8 { --main-color: var(--primary-color8) }
-*/
-
-body.dark {
-	/* Dark theme variables */
+body.background-color2 {
+	/* Dark theme */
 	--main-text-color: rgb(255, 255, 255);
 	--faded-text-color: rgb(103, 103, 103);
-	/*--main-color: rgb(79,188,246);*/
 
 	--bg-gradient-color-top: rgb(52, 52, 52);
 	--bg-gradient-color-bottom: rgb(34, 34, 34);
