@@ -108,8 +108,6 @@ function createPreferencesWindow() {
 
   pref.loadURL(`file://${__dirname}/preferencesWindow/index.html`)
 
-  pref.hide()
-
   // pref.openDevTools()
 }
 
@@ -117,11 +115,12 @@ function createPreferencesWindow() {
 let defaultSettings = {
   appearance: {
     backgroundColor: 1,
-    primaryColor: 1
+    primaryColor: 1,
+    showTime: false
   }
 }
 
-settings.deleteAll() // just for testing purposes for now
+//settings.deleteAll() // just for testing purposes for now
 
 // Set default settings if the settings do not exist yet
 for(let key in defaultSettings) {
@@ -131,8 +130,8 @@ for(let key in defaultSettings) {
 }
 
 ipcMain.on('openPreferenceWindow', (event, arg) => {
-  if(pref != null) pref.show()
-  else createPreferencesWindow()
+  if(pref === undefined || pref.isDestroyed()) createPreferencesWindow()
+  else pref.show()
 })
 
 /*

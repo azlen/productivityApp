@@ -3,6 +3,8 @@ body {
 	--primary-color1: rgb(0,231,187); /* green */
 	--primary-color2: rgb(79,188,246); /* blue */
 	--primary-color3: rgb(187,95,255); /* purple */
+	--primary-color4: rgb(255,96,95); /* red */
+	--primary-color5: rgb(255,212,95); /* yellow */
 
 	/* Background bottom gradient colors */
 	--background-color1: rgb(255, 255, 255);
@@ -15,6 +17,10 @@ body.primary-color2 { --main-color: var(--primary-color2) }
 *:not(body).primary-color2 { background-color: var(--primary-color2) }
 body.primary-color3 { --main-color: var(--primary-color3) }
 *:not(body).primary-color3 { background-color: var(--primary-color3) }
+body.primary-color4 { --main-color: var(--primary-color4) }
+*:not(body).primary-color4 { background-color: var(--primary-color4) }
+body.primary-color5 { --main-color: var(--primary-color5) }
+*:not(body).primary-color5 { background-color: var(--primary-color5) }
 
 body, body.background-color1 { /* default fallback */
 	/* Light theme */
