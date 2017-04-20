@@ -53,6 +53,13 @@ body {
 	content: attr(data-placeholder);
 }
 
+.svg-container {
+	position: fixed;
+	bottom: 15px;
+	left: 0;
+	width: 100%;
+}
+
 .svg {
 	display: block;
 	margin: auto;
@@ -84,7 +91,7 @@ body {
 	fill: var(--main-text-color);
 }
 
-.task:empty + .svg .start-timer-button:hover {
+.task:empty + .svg-container .start-timer-button:hover {
 	fill: var(--faded-text-color);
 
 	animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both;

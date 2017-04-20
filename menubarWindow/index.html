@@ -5,7 +5,7 @@ TODO:
 [ ] do not let timer position be affected by typed task
 [X] do not allow to start timer until you type a task
 [X] create preferences window
-[ ] add preferences to preferences window
+[X] add preferences to preferences window
 
 
 -->
@@ -31,18 +31,20 @@ TODO:
       <span class="TIMER_STATE">YOU ARE WORKING ON</span>
     </div>
     <div class="task" contenteditable="true" data-placeholder="Type Task Here"></div>
-    <svg class="svg" viewBox="0 0 120 120" width="240px" height="240px">
-      <path class="progress" d="M 60,60 m 0,-50 a 50,50 0 1 1 0,100 a 50,50 0 1 1 0,-100"></path>
-      <g class="circle">
-        <circle cx="60" cy="60" r="7" fill="rgba(153, 153, 153, 0.4)"></circle> <!-- border -->
-        <circle cx="60" cy="60" r="4.5" fill="rgb(255, 255, 255)"></circle> <!-- fill -->
-      </g>
-      
-      <text class="time" x="60" y="62.5"></text>
+    <div class="svg-container">
+      <svg class="svg" viewBox="0 0 120 120" width="240px" height="240px">
+        <path class="progress" d="M 60,60 m 0,-50 a 50,50 0 1 1 0,100 a 50,50 0 1 1 0,-100"></path>
+        <g class="circle">
+          <circle cx="60" cy="60" r="7" fill="rgba(153, 153, 153, 0.4)"></circle> <!-- border -->
+          <circle cx="60" cy="60" r="4.5" fill="rgb(255, 255, 255)"></circle> <!-- fill -->
+        </g>
+        
+        <text class="time" x="60" y="62.5"></text>
 
-      <text class="start-timer-button DONE_STATE" x="60" y="67.5">START</text>
-      <text class="done-task-button TIMER_STATE" x="60" y="67.5">DONE</text>
-    </svg>
+        <text class="start-timer-button DONE_STATE" x="60" y="67.5">START</text>
+        <text class="done-task-button TIMER_STATE" x="60" y="67.5">DONE</text>
+      </svg>
+    </div>
 
     <script src="pomodoro.js"></script>
   </body>
