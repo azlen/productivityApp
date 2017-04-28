@@ -91,7 +91,7 @@ body {
 	display: none;
 }
 
-.preferences input#show-time + label {
+.preferences input#show-time + label * {
 	vertical-align: middle;
 }
 .preferences input#show-time + label .checkbox {
@@ -106,15 +106,23 @@ body {
 }
 
 .preferences input[name="background-color"] + label, .preferences input[name="primary-color"] + label {
+	position: relative;
 	display: inline-block;
 	width: 30px;
 	height: 30px;
 	border-radius: 5px;
 	margin-right: 5px;
 	cursor: pointer;
-	border: 4px solid rgba(0, 0, 0, 0.1);
 }
 
-.preferences input[name="background-color"]:checked + label, .preferences input[name="primary-color"]:checked + label {
-	border-color: rgba(0, 0, 0, 0.4);
+.preferences input[name="background-color"]:checked + label:after, .preferences input[name="primary-color"]:checked + label:after {
+	content: "";
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	width: 100%;
+	height: 100%;
+	padding: 5px;
+	border-radius: 6px;
+	border: 1px solid #000;
 }
