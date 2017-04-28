@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "electron-settings": "^3.0.14",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0",
     "human-readable-time": "^0.2.4",
     "menubar": "^5.2.3",
     "node-notifier": "^5.1.2",
